@@ -18,7 +18,7 @@ class VerifyOwnership
         $listingId = $request->route("listing")->id;
         $user = auth()->user();
 
-        if ($user->listings->contains($listingId)) {
+        if ($user->listings->contains($listingId) || $user->role == "admin") {
             return $next($request);
         }
 

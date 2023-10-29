@@ -19,16 +19,17 @@ class UserController extends Controller
         return view("users.login");
     }
 
-    public function authenticate(Request $request){
+    public function authenticate(Request $request)
+    {
         $formFields = $request->validate([
-            "email"=> ["required","email"],
-            "password"=> ["required"]
+            "email" => ["required", "email"],
+            "password" => ["required"]
         ]);
-        if(auth()->attempt($formFields)){
+        if (auth()->attempt($formFields)) {
             $request->session()->regenerate();
-            return redirect("/")->with("success","Welcome!");
+            return redirect("/")->with("success", "Welcome!");
         }
-        return back()->withErrors(['email'=> 'Invalid credentials'])->onlyInput('email');
+        return back()->withErrors(['email' => 'Invalid credentials'])->onlyInput('email');
     }
 
     public function store(Request $request)
@@ -49,9 +50,28 @@ class UserController extends Controller
         $user = User::create($formFields);
 
         // Login
+        if (auth()->user()->role == "admin") {
+            return redirect('/admin')->with('success', 'User created successfully');
+        }
+        // auth()->user()->role == "admin" ? redirect('admin')->with('success', 'User created successfully') 
+        // : 
+        // auth()->login($user);
         auth()->login($user);
 
         return redirect('/')->with('success', 'User created and logged in');
+    }
+
+    //Admin update
+    public function update(Request $request, User $user){
+        $formFields = $request->validate([
+            "name" => ["required", "string","min:3"],
+            "email" => ["required", "string","email"],
+            'password' => ['required', 'string', 'confirmed'],
+        ]);
+
+        $user->update($formFields);
+
+        return back()->with('message', "User " .$user->name. " updated successfully");
     }
 
     public function logout(Request $request)
