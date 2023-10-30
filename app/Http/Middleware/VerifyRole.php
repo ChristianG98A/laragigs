@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class VerifyOwnership
+class VerifyRole
 {
     /**
      * Handle an incoming request.
@@ -15,13 +15,13 @@ class VerifyOwnership
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $listingId = $request->route("listing")->id;
-        $user = auth()->user();
+        $userRole= auth()->user()->role;
 
-        if ($user->listings->contains($listingId) || $user->role == "admin") {
-            return $next($request);
+        if($userRole == "admin"){
+            
+        return $next($request);
         }
 
-        return redirect(route('index'));
+        abort(403, "Unauthorized");
     }
 }

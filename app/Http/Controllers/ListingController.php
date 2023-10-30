@@ -56,6 +56,7 @@ class ListingController extends Controller
 
     public function edit(Listing $listing)
     {
+        // dd($listing);
         return view("listings.edit", ['listing' => $listing]);
     }
 
@@ -80,12 +81,14 @@ class ListingController extends Controller
         return back()->with('message', "Listing updated successfully");
     }
 
-    public function destroy(Listing $listing){
+    public function destroy(Listing $listing)
+    {
         $listing->delete();
-        return redirect("/")->with("message",$listing->title . " deleted successfully!");
+        return redirect("/")->with("message", $listing->title . " deleted successfully!");
     }
 
-    public function manage(){
+    public function manage()
+    {
         return view('listings.manage', ['listings' => auth()->user()->listings()->get()]);
     }
 }

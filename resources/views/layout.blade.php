@@ -40,6 +40,12 @@
                     <a href="/listings/manage" class="hover:text-laravel"><i class="fa-solid fa-gear"></i>
                         Manage Listings</a>
                 </li>
+                @if(auth()->user()->role=='admin')
+                <li>
+                    <a href="/admin" class="hover:text-laravel"><i class="fa-solid fa-person"></i>
+                        Admin</a>
+                </li>
+                @endif
 
                 <li>
                     <form method="post" class="inline" action="/logout">
