@@ -61,6 +61,19 @@ class UserController extends Controller
         return redirect('/')->with('success', 'User created and logged in');
     }
 
+    //Admin update
+    public function update(Request $request, User $user)
+    {
+        $formFields = $request->validate([
+            "name" => ["required", "string", "min:3"],
+            "email" => ["required", "string", "email"],
+            'password' => ['required', 'string', 'confirmed'],
+        ]);
+
+        $user->update($formFields);
+
+        return back()->with('message', "User " . $user->name . " updated successfully");
+    }
 
     public function logout(Request $request)
     {
