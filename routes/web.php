@@ -59,6 +59,8 @@ Route::post('/users/authenticate', [UserController::class, "authenticate"]);
 // Logout
 Route::post('/logout', [UserController::class, 'logout']);
 
+
+
 //Admin index
 Route::get('/admin', [AdminController::class, 'index'])->middleware('auth', VerifyRole::class);
 
@@ -69,7 +71,16 @@ Route::get('/admin/add-user', [AdminController::class,'addUser'])->middleware('a
 Route::get('/admin/{user}/edit', [AdminController::class,'editUser'])->middleware('auth', VerifyRole::class);
 
 //Admin user edit
-Route::post('/admin/{user}', [UserController::class,'update'])->middleware('auth', VerifyRole::class);
+Route::post('/admin/{user}', [AdminController::class,'update'])->middleware('auth', VerifyRole::class);
+
+//Admin user delete page
+Route::get('/admin/{user}/delete-confirmation', [AdminController::class,'deleteUserPage'])->middleware('auth', VerifyRole::class);
+
+//Admin user delete
+Route::delete('/admin/{user}', [AdminController::class,'deleteUser'])->middleware('auth', VerifyRole::class);
+
+
+
 
 // Single listing  !!Keep Last!!
 Route::get('/listings/{listing}', [ListingController::class, 'show']);
