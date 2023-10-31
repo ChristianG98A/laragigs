@@ -58,8 +58,11 @@
                     <button type="submit" class="bg-laravel text-white rounded py-2 px-4 hover:bg-black">
                         Update User
                     </button>
+                    <a href="delete-confirmation" class="text-red-500 ml-4"> Delete </a>
                     <a href="/admin" class="text-black ml-4"> Back </a>
                 </div>
+
+
             </form>
         </x-card>
 

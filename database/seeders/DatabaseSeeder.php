@@ -14,18 +14,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $user= User::factory()->create([
-            "name"=> "John Doe",
-            "email"=> "john@doe.com"
+        $user = User::factory()->create([
+            "name" => "John Doe",
+            "email" => "john@doe.com"
         ]);
 
-        $admin= User::factory()->create([
-            "name"=> "cristi",
-            "email"=> "cristi.admi@mail.com",
+        $admin = User::factory()->create([
+            "name" => "cristi",
+            "email" => "cristi.hva@gmail.com",
             "role" => "admin"
         ]);
 
-        // \App\Models\User::factory(10)->create();
+        \App\Models\User::factory(10)->create();
 
         Listing::factory(6)->create([
             'user_id' => $user->id
