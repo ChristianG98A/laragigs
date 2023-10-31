@@ -50,7 +50,7 @@ class UserController extends Controller
         $user = User::create($formFields);
 
         // Login
-        if (auth()->user()->role == "admin") {
+        if (auth()->user()?->role == "admin") {
             return redirect('/admin')->with('success', 'User created successfully');
         }
         // auth()->user()->role == "admin" ? redirect('admin')->with('success', 'User created successfully') 
